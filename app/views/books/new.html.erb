@@ -1,0 +1,13 @@
+<h1> Cadastro de livro</h1>
+<%= form_with model: @book do |form| %>
+  <div class="mb-3">
+    <%= form.text_field :title, class: "form-control", placeholder: "Título" %>
+  </div>
+  <div class="mb-3">
+    <%= form.text_field :author, class: "form-control", placeholder: "Autor" %>
+  </div>
+  <div class="mb-3">
+    <%= form.select :category_id, @categories, {}, class: 'form-control'  %>
+  </div>
+  <%= form.submit "Salvar", class: "btn btn-primary" %>
+<% end %>

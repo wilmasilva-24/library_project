@@ -1,0 +1,32 @@
+<%= flash[:notice] %>
+<h1> Livros cadastrados </h1>
+<%= link_to "Cadastrar livro", new_book_url, class: "btn btn-info" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Título</th>
+      <th scope="col">Autor</th>
+      <th scope="col">Categoria</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @books.each do |book| %>
+      <tr>
+        <td scope="col"> <%= book.id %> </td>
+        <td scope="col"> <%= book.title %> </td>
+        <td scope="col"> <%= book.author %> </td>
+        <td scope="col"> <%= book.category.name %> </td>
+        <td scope="col"> <%= link_to "Editar", edit_book_path(book) %>
+                        <%= link_to "Deletar", book, 
+                        method: :delete ,
+                        data: { confirm: "Quer mesmo excluir o livro?" } %>
+        </td>
+      </tr>
+    <% end %>
+</table>
+
+
