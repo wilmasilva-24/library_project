@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "Books", type: :feature do
   let(:category) { Category.create(name:"Infantil") }
-  before { category }
+  let(:user) {User.create(name:"Teste", email:"teste@test.com", password:"1234", permission:"admin")}
+  before do
+    category
+    sign_in user
+  end
 
   describe "GET /index" do
     scenario "Acessando listagem de livros" do

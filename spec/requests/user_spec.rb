@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :feature do
+  let(:user) {User.create(name:"Teste", email:"teste@test.com", password:"1234", permission:"admin")}
+  before do
+    sign_in user
+  end
   describe "GET /create" do
     scenario "Quando acessar formulário do cadastro de livro" do
 

@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'will_paginate', '~> 3.3'
+gem 'devise'
 
 group :test do
   gem 'shoulda-matchers', '~> 5.0'
