@@ -1,0 +1,29 @@
+<%= flash[:notice] %>
+<h1> Usuários cadastrados </h1>
+<%= link_to "Novo usuário", new_user_url, class: "btn btn-info" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Permissão</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @users.each do |user| %>
+      <tr>
+        <td scope="col"> <%= user.id %> </td>
+        <td scope="col"> <%= user.name %> </td>
+        <td scope="col"> <%= user.email %> </td>
+        <td scope="col"> <%= user.permission %> </td>
+        <td scope="col"> <%= link_to "Editar", edit_user_path(user) %> </td>
+      </tr>
+    <% end %>
+</table>
+<div class="column is-multiline is-4"> 
+  <%= will_paginate @books %>
+</div>

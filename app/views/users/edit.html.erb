@@ -1,0 +1,21 @@
+<%= flash[:notice] %>
+<h1> Editar usuário</h1>
+<%= form_with model: @user do |form| %>
+  <div class="mb-3">
+    <%= form.text_field :name, class: "form-control", placeholder: "Nome" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.text_field :email, class: "form-control", placeholder: "Email" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.password_field :password, class: "form-control", placeholder: "Senha" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.select :permission, User.permissions.keys.map { |w| [w.humanize, w] }, {}, class: 'form-control'  %>
+  </div>
+  
+  <%= form.submit "Salvar", class: "btn btn-primary" %>
+<% end %>
