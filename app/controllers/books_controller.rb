@@ -18,7 +18,7 @@ class BooksController < ApplicationController
 
   def create
     book = Book.create!(book_params)
-    redirect_to books_path
+    redirect_to books_path, notice: 'Livro cadastrado!'
   end
 
   def destroy

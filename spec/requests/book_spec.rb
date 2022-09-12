@@ -1,29 +1,65 @@
 require 'rails_helper'
 
-RSpec.describe "Books", type: :request do
+RSpec.describe "Books", type: :feature do
+  let(:category) { Category.create(name:"Infantil") }
+  before { category }
+
   describe "GET /index" do
-    it "retornar status 200" do
-      category = Category.create(name:"Infantil")
-      book = Book.create(title:"Animais", author:"Antônio", category_id: category.id)
+    scenario "Acessando listagem de livros" do
+     
+      visit '/books'
 
-      get "/books"
+      expect(page).to have_content('Livros cadastrados')
+      expect(page).to have_content('Cadastrar livro')
+    end
 
-      expect(response).to have_http_status(:ok)
+    scenario "Quando clicar no botão de criar livro" do
+
+      visit '/books'
+
+      click_link('Cadastrar livro')
+      expect(page).to have_content('Cadastro de livro')
     end
   end
-  describe " Quando criar um livro" do
-    it "retornar status 201" do
-      category = Category.create(name:"Infantil")
+
+  describe " /new" do
+    scenario "Quando acessar formulário do cadastro de livro" do
+
+      visit "/books/new"
+     
+      fill_in "book[title]", with: 'Dinossauro'
+      fill_in "book[author]", with: 'Xavier'
+      select(category.name, from: 'book[category_id]')
+      click_button('Salvar')
+      expect(page).to have_content('Livro cadastrado!')
+    end
+  end
+
+  describe " /edit" do
+    scenario "Quando editar livro " do
+      book = Book.create(title: "Floresta", author: "José", category_id: category.id)
       book_params = { book: {
-        title: "Dinossauro",
-        author: "Xavier",
-        category_id: category.id
+        title: "Férias e Diversão"
         }
       }
 
-      post "/books", params: book_params
+      visit "/books/#{book.id}/edit"
 
-      expect(response).to have_http_status(:created)
+      expect(page).to have_content('Editar livro')
+      click_button('Salvar')
+      expect(page).to have_content('Livro atualizado!')
+    end
+  end
+
+  describe " /destroy" do
+    scenario "Quando for apagar livro " do
+      book = Book.create(title: "Floresta", author: "José", category_id: category.id)
+      
+      visit "/books"
+
+      click_link('Deletar')
+      expect(page).to have_content('Livro excluído.')
+      expect(Book.count).to eq(0)
     end
   end
 end
