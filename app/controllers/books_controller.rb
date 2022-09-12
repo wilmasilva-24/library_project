@@ -1,6 +1,14 @@
 class BooksController < ApplicationController
   def index
-    @books = Book.all
+    if params[:search].present?
+      @books = Book.includes(:category).references(:category)
+                   .where(
+                    "title ILIKE :search_param OR author ILIKE :search_param OR categories.name ILIKE :search_param", 
+                    search_param: "%#{params[:search]}%"
+                    )
+    else
+      @books = Book.includes(:category).paginate(page: params[:page],per_page: 5)
+    end
   end
 
   def new
@@ -28,7 +36,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     
     if @book.update(book_params)
-      redirect_to edit_book_path(@book), notice: 'Livro atualizado!'
+      redirect_to books_path, notice: 'Livro atualizado!'
     else
       render :edit
     end
