@@ -7,7 +7,7 @@ class ReservationsController < ApplicationController
                                   search_param: "%#{params[:search]}%"
                                   ).paginate(page: params[:page],per_page: 5)
     else 
-      @reservations = Reservation.paginate(page: params[:page],per_page: 2)
+      @reservations = Reservation.paginate(page: params[:page],per_page: 5)
     end
   end
 

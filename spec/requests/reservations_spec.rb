@@ -10,6 +10,7 @@ RSpec.describe "Reservations", type: :feature do
 
     sign_in user
   end
+  
   describe "GET /index" do
     scenario "Listagem de reservas" do
      
@@ -27,6 +28,7 @@ RSpec.describe "Reservations", type: :feature do
       expect(page).to have_content('Realizar reserva')
     end
   end
+
   describe " /new" do
     scenario "Formulário de reserva" do
 
@@ -40,6 +42,7 @@ RSpec.describe "Reservations", type: :feature do
       expect(page).to have_content('Livro reservado!')
     end
   end
+
   describe "/edit" do
     scenario "Quando editar reserva" do
       reservation = Reservation.create(created_at:'2022-09-13', user_id: user.id, book_id: book.id)
@@ -53,6 +56,17 @@ RSpec.describe "Reservations", type: :feature do
       expect(page).to have_content('Atualizar reserva')
       fill_in "reservation[created_at]", with: '2022-09-12'
       click_button('Atualizar')
+    end
+  end
+
+  describe "/finish" do
+    scenario "Quando for finalizar reserva" do
+      reservation = Reservation.create(created_at:'2022-09-11', user_id: user.id, book_id: book.id)
+
+      visit "/reservations"
+
+      click_link('Finalizar reserva')
+      expect(page).to have_content('Reserva finalizada!')
     end
   end
 end

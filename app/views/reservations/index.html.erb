@@ -30,7 +30,8 @@
         <td scope="col"> <%= reservation.user.name %> </td>
         <td scope="col"> <%= reservation.book.title %> </td>
         <td scope="col"> <%= link_to "Editar", edit_reservation_path(reservation) %> 
-                        <%= link_to "Finalizar reserva", finish_reservation_path(reservation) %>
+                        <%= link_to "Finalizar reserva", finish_reservation_path(reservation), 
+                        data: { confirm: "Confirma a entrega do livro?" } %>
         </td>
       </tr>
     <% end %>
