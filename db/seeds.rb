@@ -9,3 +9,6 @@
 Category.create(name: 'Infantil')
 Category.create(name: 'Aventura')
 Category.create(name: 'Juvenil')
+
+User.create(name:"user", email:"user@teste.com", password: "12345", permission:"common")
+User.create(name:"Admin", email:"admin@test.com", password:"12345", permission:"admin")

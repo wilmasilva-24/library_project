@@ -16,3 +16,10 @@ rails s
 
 # Para executar testes unitários
 rspec spec/
+
+# Usuários para acessar o sistema
+-- Usuário comum --
+email: user@teste.com, password: 12345
+
+-- Admin --
+email: admin@test.com, password: 12345

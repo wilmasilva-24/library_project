@@ -1,10 +1,17 @@
 <h1> Lista de reservas </h1>
-<%= link_to "Nova reserva", new_reservation_url, class: "btn btn-info" %>
-
 <%= form_tag(reservations_path, method: :get) do %>
-  <%= text_field_tag(:search, params[:search], class: 'form-control', placeholder: "Pesquisar reserva") %>
-  <%= submit_tag ("Pesquisar") %>
+<div class="row float-sm-end" >
+  <div class="col-8"> 
+    <%= text_field_tag(:search, params[:search], class: 'form-control', placeholder: "Pesquisar reserva") %>
+  </div>
+  <div class="col-4">
+    <%= submit_tag ("Pesquisar") %>
+  </div>
+</div>
 <% end %>
+
+<br><br>
+<%= link_to "Nova reserva", new_reservation_url, class: "btn btn-info float-sm-end" %>
 
 <table class="table">
   <thead>

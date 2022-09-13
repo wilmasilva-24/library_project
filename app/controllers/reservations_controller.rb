@@ -14,9 +14,16 @@ class ReservationsController < ApplicationController
   end
 
   def new
-    @users = User.all.collect{|user| [user.name, user.id]}
+    if current_user.admin? 
+      @users = User.all.collect{|user| [user.name, user.id]}
+
+    else
+      @users = User.where(id: current_user.id).collect{|user| [user.name, user.id]}
+    end
     @books = Book.all.collect{|book| [book.title, book.id]}
     @reservation = Reservation.new
+   
+
   
   end
 
