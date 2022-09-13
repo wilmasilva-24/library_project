@@ -7,7 +7,7 @@ class ReservationsController < ApplicationController
                                   search_param: "%#{params[:search]}%"
                                   ).paginate(page: params[:page],per_page: 5)
     else 
-      @reservations = Reservation.paginate(page: params[:page],per_page: 5)
+      @reservations = Reservation.includes(:user, :book).paginate(page: params[:page],per_page: 5)
     end
 
     @reservations = @reservations.where(user: current_user) if current_user.common?
@@ -22,9 +22,6 @@ class ReservationsController < ApplicationController
     end
     @books = Book.all.collect{|book| [book.title, book.id]}
     @reservation = Reservation.new
-   
-
-  
   end
 
   def create
