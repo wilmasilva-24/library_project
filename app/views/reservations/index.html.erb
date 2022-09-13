@@ -1,0 +1,38 @@
+<%= flash[:notice] %>
+<h1> Lista de reservas </h1>
+<%= link_to "Nova reserva", new_reservation_url, class: "btn btn-info" %>
+
+<%= form_tag(reservations_path, method: :get) do %>
+  <%= text_field_tag(:search, params[:search], class: 'form-control', placeholder: "Pesquisar reserva") %>
+  <%= submit_tag ("Pesquisar") %>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Data da reserva</th>
+      <th scope="col">Data de entrega</th>
+      <th scope="col">Status da reserva</th>
+      <th scope="col">Usuário</th>
+      <th scope="col">Livro</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td scope="col"> <%= reservation.id %> </td>
+        <td scope="col"> <%= reservation.created_at %> </td>
+        <td scope="col"> <%= reservation.date_return %> </td>
+        <td scope="col"> <%= reservation.status %> </td>
+        <td scope="col"> <%= reservation.user.name %> </td>
+        <td scope="col"> <%= reservation.book.title %> </td>
+        <td scope="col"> <%= link_to "Editar", edit_reservation_path(reservation) %> </td>
+      </tr>
+    <% end %>
+</table>
+<div class="column is-multiline is-4"> 
+  <%= will_paginate @reservations %>
+</div>

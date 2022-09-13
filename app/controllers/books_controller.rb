@@ -5,7 +5,7 @@ class BooksController < ApplicationController
                    .where(
                     "title ILIKE :search_param OR author ILIKE :search_param OR categories.name ILIKE :search_param", 
                     search_param: "%#{params[:search]}%"
-                    )
+                    ).paginate(page: params[:page],per_page: 5)
     else
       @books = Book.includes(:category).paginate(page: params[:page],per_page: 5)
     end

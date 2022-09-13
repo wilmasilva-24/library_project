@@ -1,0 +1,15 @@
+<%= flash[:notice] %>
+<h1> Atualizar reserva </h1>
+<%= form_with model: @reservation do |form| %>
+  <div class="mb-3">
+    <%= form.label "Data da reserva" %><br />
+    <%= form.date_field :created_at, class: "form-control", placeholder: "Data da reserva" %>
+  </div>
+  <div class="mb-3">
+    <%= form.select :user_id, @users, {}, class: 'form-control'  %>
+  </div>
+  <div class="mb-3">
+    <%= form.select :book_id, @books, {}, class: 'form-control'  %>
+  </div>
+  <%= form.submit "Atualizar", class: "btn btn-primary" %>
+<% end %>

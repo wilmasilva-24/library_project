@@ -39,10 +39,6 @@ RSpec.describe "Users", type: :feature do
   describe " /edit" do
     scenario "Quando editar usuário " do
       user = User.create(name:"Silva", email: "silva@gmail.com", password:"123", permission:"common")
-      params = { user: {
-        email: "wsilva@hotmail.com"
-        }
-      }
 
       visit "/users/#{user.id}/edit"
 

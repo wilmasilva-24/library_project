@@ -1,0 +1,17 @@
+<%= flash[:notice] %>
+<h1> Realizar reserva </h1>
+<%= form_with model: @reservation do |form| %>
+  <div class="mb-3">
+    <%= form.label "Data da reserva" %><br />
+    <%= form.date_field :created_at, class: "form-control", placeholder: "Data da reserva", value: Date.current %>
+  </div>
+  <div class="mb-3">
+    <%= form.label "Usuário" %><br />
+    <%= form.select :user_id, @users, {}, class: 'form-control'  %>
+  </div>
+  <div class="mb-3">
+    <%= form.label "Livro" %><br />
+    <%= form.select :book_id, @books, {}, class: 'form-control'  %>
+  </div>
+  <%= form.submit "Salvar", class: "btn btn-primary" %>
+<% end %>
