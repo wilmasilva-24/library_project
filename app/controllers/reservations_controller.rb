@@ -2,10 +2,10 @@ class ReservationsController < ApplicationController
   def index
     if params[:search].present?
       @reservations = Reservation.includes(:user, :book).references(:user, :book)
-                   .where(
-                    "users.name ILIKE :search_param OR books.title ILIKE :search_param ", 
-                    search_param: "%#{params[:search]}%"
-                    ).paginate(page: params[:page],per_page: 5)
+                                 .where(
+                                  "users.name ILIKE :search_param OR books.title ILIKE :search_param ", 
+                                  search_param: "%#{params[:search]}%"
+                                  ).paginate(page: params[:page],per_page: 5)
     else 
       @reservations = Reservation.paginate(page: params[:page],per_page: 2)
     end
@@ -41,6 +41,15 @@ class ReservationsController < ApplicationController
       redirect_to reservations_path, notice: 'Reserva atualizada'
     else
       render :edit
+    end
+  end
+
+  def finish
+    reservation = Reservation.find(params[:id])
+    if reservation.update(date_return: Date.current)
+      redirect_to reservations_path, notice: 'Reserva finalizada!'
+    else
+      render :index
     end
   end
 

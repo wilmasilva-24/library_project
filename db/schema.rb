@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 2022_09_13_011727) do
 
   create_table "reservations", force: :cascade do |t|
     t.date "date_return"
-    t.integer "status", default: 0
     t.bigint "user_id", null: false
     t.bigint "book_id", null: false
     t.datetime "created_at", precision: 6, null: false

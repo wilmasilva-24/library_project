@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Instalar dependências
+bundle install
 
-Things you may want to cover:
+# Preparar banco de dados
+Criar arquivo .env com os seguintes dados:
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
 
-* Ruby version
+rails db:create db:migrate
+rails db:seed
 
-* System dependencies
+# Para executar aplicação
+rails s
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Para executar testes unitários
+rspec spec/
