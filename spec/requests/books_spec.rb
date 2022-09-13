@@ -2,27 +2,36 @@ require 'rails_helper'
 
 RSpec.describe "Books", type: :feature do
   let(:category) { Category.create(name:"Infantil") }
-  let(:user) {User.create(name:"Teste", email:"teste@test.com", password:"1234", permission:"admin")}
+  let(:admin) {User.create(name:"Teste", email:"teste@test.com", password:"1234", permission:"admin")}
+  let(:user) {User.create(name:"User", email:"user@test.com", password:"1234", permission:"common")}
   before do
     category
-    sign_in user
+    sign_in admin
   end
 
   describe "GET /index" do
-    scenario "Acessando listagem de livros" do
-     
-      visit '/books'
+    context "Quando logar com usuário comum" do
+      before do
+        category
+        sign_in user
+      
+        scenario "Acessando listagem de livros" do
+        
+          visit '/books'
 
-      expect(page).to have_content('Livros cadastrados')
-      expect(page).to have_content('Cadastrar livro')
+          expect(page).to have_content('Livros cadastrados')
+        end
+      end
     end
+    
+    context "Quando logar como admin" do
+      scenario "Quando clicar no botão de criar livro" do
 
-    scenario "Quando clicar no botão de criar livro" do
+        visit '/books'
 
-      visit '/books'
-
-      click_link('Cadastrar livro')
-      expect(page).to have_content('Cadastro de livro')
+        click_link('Cadastrar livro')
+        expect(page).to have_content('Cadastro de livro')
+      end
     end
   end
 

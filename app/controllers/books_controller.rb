@@ -17,8 +17,9 @@ class BooksController < ApplicationController
   end
 
   def create
-    book = Book.create!(book_params)
-    if book.save
+    @book = Book.new(book_params)
+    authorize :book
+    if @book.save
       redirect_to books_path, notice: 'Livro cadastrado!'
     else
       render :new
@@ -27,6 +28,7 @@ class BooksController < ApplicationController
 
   def destroy
     book = Book.find(params[:id])
+    authorize book
     book.destroy
     redirect_to books_path, notice: 'Livro excluído.'
   end
@@ -38,6 +40,7 @@ class BooksController < ApplicationController
 
   def update
     @book = Book.find(params[:id])
+    authorize book
     
     if @book.update(book_params)
       redirect_to books_path, notice: 'Livro atualizado!'

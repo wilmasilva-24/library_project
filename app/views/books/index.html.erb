@@ -1,6 +1,8 @@
 <%= flash[:notice] %>
 <h1> Livros cadastrados </h1>
-<%= link_to "Cadastrar livro", new_book_url, class: "btn btn-info" %>
+<% if policy(:book).create? %>
+  <%= link_to "Cadastrar livro", new_book_url, class: "btn btn-info" %>
+<% end %>
 
 <%= form_tag(books_path, method: :get) do %>
   <%= text_field_tag(:search, params[:search], class: 'form-control', placeholder: "Pesquisar livro") %>
@@ -14,7 +16,9 @@
       <th scope="col">Título</th>
       <th scope="col">Autor</th>
       <th scope="col">Categoria</th>
-      <th scope="col">Ações</th>
+      <% if current_user.admin? %>
+        <th scope="col">Ações</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -25,10 +29,12 @@
         <td scope="col"> <%= book.title %> </td>
         <td scope="col"> <%= book.author %> </td>
         <td scope="col"> <%= book.category.name %> </td>
-        <td scope="col"> <%= link_to "Editar", edit_book_path(book) %>
-                        <%= link_to "Deletar", book, 
+        <td scope="col"> <% if policy(:book).update? %> <%= link_to "Editar", edit_book_path(book) %>
+                        <% end %>
+                        <% if policy(:book).destroy? %> <%= link_to "Deletar", book, 
                         method: :delete ,
                         data: { confirm: "Quer mesmo excluir o livro?" } %>
+                        <% end %>
         </td>
       </tr>
     <% end %>
