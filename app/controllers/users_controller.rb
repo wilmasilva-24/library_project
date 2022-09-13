@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create!(user_params)
+    authorize :user
     if @user.save
       redirect_to users_path, notice: 'Usuário cadastrado!'
     else
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    authorize user
     
     if @user.update(user_params)
       redirect_to users_path, notice: 'Usuário atualizado!'
