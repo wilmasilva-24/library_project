@@ -1,4 +1,3 @@
-<%= flash[:notice] %>
 <h1> Usuários cadastrados </h1>
 <% if policy(:user).create? %>
   <%= link_to "Novo usuário", new_user_url, class: "btn btn-info" %>

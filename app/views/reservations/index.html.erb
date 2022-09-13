@@ -1,4 +1,3 @@
-<%= flash[:notice] %>
 <h1> Lista de reservas </h1>
 <%= link_to "Nova reserva", new_reservation_url, class: "btn btn-info" %>
 
@@ -16,7 +15,9 @@
       <th scope="col">Status da reserva</th>
       <th scope="col">Usuário</th>
       <th scope="col">Livro</th>
-      <th scope="col">Ações</th>
+      <% if current_user.admin? %>
+        <th scope="col">Ações</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -29,9 +30,12 @@
         <td scope="col"> <%= reservation.define_status %> </td>
         <td scope="col"> <%= reservation.user.name %> </td>
         <td scope="col"> <%= reservation.book.title %> </td>
-        <td scope="col"> <%= link_to "Editar", edit_reservation_path(reservation) %> 
-                        <%= link_to "Finalizar reserva", finish_reservation_path(reservation), 
-                        data: { confirm: "Confirma a entrega do livro?" } %>
+        <td scope="col"> <% if policy(:book).update? %> <%= link_to "Editar", edit_reservation_path(reservation) %>
+                        <% end %> 
+                        <% if current_user.admin? %>
+                          <%= link_to "Finalizar reserva", finish_reservation_path(reservation), 
+                          data: { confirm: "Confirma a entrega do livro?" } %>
+                        <% end %>
         </td>
       </tr>
     <% end %>

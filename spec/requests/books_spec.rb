@@ -51,10 +51,6 @@ RSpec.describe "Books", type: :feature do
   describe " /edit" do
     scenario "Quando editar livro " do
       book = Book.create(title: "Floresta", author: "José", category_id: category.id)
-      book_params = { book: {
-        title: "Férias e Diversão"
-        }
-      }
 
       visit "/books/#{book.id}/edit"
 

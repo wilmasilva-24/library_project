@@ -14,6 +14,7 @@ class BooksController < ApplicationController
   def new
     @categories = Category.all.collect{|category| [category.name, category.id]}
     @book = Book.new
+    authorize :book
   end
 
   def create
@@ -36,11 +37,12 @@ class BooksController < ApplicationController
   def edit
     @categories = Category.all.collect{|category| [category.name, category.id]}
     @book = Book.find(params[:id])
+    authorize @book
   end
 
   def update
     @book = Book.find(params[:id])
-    authorize book
+    authorize @book
     
     if @book.update(book_params)
       redirect_to books_path, notice: 'Livro atualizado!'

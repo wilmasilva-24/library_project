@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :user
   resources :users, only: [:index, :new, :create, :edit, :update]
   resources :books, only: [:index, :new, :create, :destroy, :edit, :update]
-  resources :reservations, only: [:index, :new, :create, :edit, :update], to: 'reservations#index' do
+  resources :reservations, only: [:index, :new, :create, :edit, :update] do
     get 'finish', on: :member
   end
  

@@ -3,8 +3,9 @@ class UsersController < ApplicationController
     @users = User.paginate(page: params[:page],per_page: 5)
   end
   
-  def new
+  def new 
     @user = User.new
+    authorize :user
   end
 
   def create
@@ -19,11 +20,12 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    authorize :user
   end
 
   def update
     @user = User.find(params[:id])
-    authorize user
+    authorize @user
     
     if @user.update(user_params)
       redirect_to users_path, notice: 'Usuário atualizado!'

@@ -11,6 +11,11 @@ class BookPolicy < ApplicationPolicy
     @user.admin?
   end
 
-  # class Scope < Scope
-  # end
+  def edit?
+    @user.admin?
+  end
+
+  def new?
+    @user.admin?
+  end
 end
